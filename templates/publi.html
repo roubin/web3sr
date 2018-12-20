@@ -102,8 +102,7 @@
 <body>
     <div id="container">
         <div id="content">
-            <h1>Helper des publis 3SR</h1>
-            <a href="{% url 'publi:labo' %}">Laboratoire</a> - <a href="{% url 'publi:rv' %}">RV</a> - <a href="{% url 'publi:geomecanique' %}">Géomécanique</a> - <a href="{% url 'publi:comhet' %}">CoMHet</a>
+            <h1>API HAL: <a href="{% url 'publi:index' %}">Collection 3SR</a> - <a href="{% url 'publi:labo' %}">Laboratoire</a> - <a href="{% url 'publi:rv' %}">RV</a> - <a href="{% url 'publi:geomecanique' %}">Géomécanique</a> - <a href="{% url 'publi:comhet' %}">CoMHet</a></h1>
             <h2>{{structure.name}} [{{structure.id}}]</h2>
             <h3>3 dernières publis</h3>
             <button id="button1" onclick="CopyToClipboard('copy1')">Copier au format HTML</button>

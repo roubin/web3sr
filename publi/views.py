@@ -6,13 +6,15 @@ def index(request):
     from time import strftime
     from time import gmtime
 
-    publis = requests.get('http://api.archives-ouvertes.fr/search/3S-R?q=(docType_s:ART)&sort=producedDate_tdate desc&rows=100&fl=*').json()
+    structure = {"name": "Collection 3SR", "id": "3S-R"}
+    publis = requests.get("http://api.archives-ouvertes.fr/search/{}?q=(docType_s:ART)&sort=producedDate_tdate desc&rows=100&fl=*".format(structure.get("id"))).json()
 
     date = strftime("%d/%m/%Y", gmtime())
     context = {"publis": publis["response"]["docs"],
                "publis3": publis["response"]["docs"][:3],
                "publis5": publis["response"]["docs"][:5],
-               "date": date}
+               "date": date,
+               "structure": structure}
     return render(request, 'publi.html', context)
 
 
