@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+REQ_DOC_TYPE = "(docType_s:ART OR docType_s:OUV OR docType_s:COUV)"
+
 
 def index(request):
     import requests
@@ -7,7 +9,7 @@ def index(request):
     from time import gmtime
 
     structure = {"name": "Collection 3SR", "id": "3S-R"}
-    publis = requests.get("http://api.archives-ouvertes.fr/search/{}?q=(docType_s:ART)&sort=producedDate_tdate desc&rows=100&fl=*".format(structure.get("id"))).json()
+    publis = requests.get("http://api.archives-ouvertes.fr/search/{}?q={}&sort=producedDate_tdate desc&rows=2000&fl=*".format(structure.get("id"), REQ_DOC_TYPE)).json()
 
     date = strftime("%d/%m/%Y", gmtime())
     context = {"publis": publis["response"]["docs"],
@@ -24,7 +26,7 @@ def labo(request):
     from time import gmtime
 
     structure = {"name": "Laboratoire", "id": 706}
-    publis = requests.get("http://api.archives-ouvertes.fr/search/?q=(docType_s:ART AND authStructId_i:{})&sort=producedDate_tdate desc&rows=100&fl=*".format(structure.get("id"))).json()
+    publis = requests.get("http://api.archives-ouvertes.fr/search/?q=({r} AND authStructId_i:{s})&sort=producedDate_tdate desc&rows=100&fl=*".format(s=structure.get("id"), r=REQ_DOC_TYPE)).json()
 
     date = strftime("%d/%m/%Y", gmtime())
     context = {"publis": publis["response"]["docs"],
@@ -41,7 +43,7 @@ def comhet(request):
     from time import gmtime
 
     structure = {"name": "CoMHet", "id": 545341}
-    publis = requests.get("http://api.archives-ouvertes.fr/search/?q=(docType_s:ART AND authStructId_i:{})&sort=producedDate_tdate desc&rows=100&fl=*".format(structure.get("id"))).json()
+    publis = requests.get("http://api.archives-ouvertes.fr/search/?q=({r} AND authStructId_i:{s})&sort=producedDate_tdate desc&rows=100&fl=*".format(s=structure.get("id"), r=REQ_DOC_TYPE)).json()
 
     date = strftime("%d/%m/%Y", gmtime())
     context = {"publis": publis["response"]["docs"],
@@ -58,7 +60,7 @@ def geomecanique(request):
     from time import gmtime
 
     structure = {"name": "Géomécanique", "id": 545340}
-    publis = requests.get("http://api.archives-ouvertes.fr/search/?q=(docType_s:ART AND authStructId_i:{})&sort=producedDate_tdate desc&rows=100&fl=*".format(structure.get("id"))).json()
+    publis = requests.get("http://api.archives-ouvertes.fr/search/?q=({r} AND authStructId_i:{s})&sort=producedDate_tdate desc&rows=100&fl=*".format(s=structure.get("id"), r=REQ_DOC_TYPE)).json()
 
     date = strftime("%d/%m/%Y", gmtime())
     context = {"publis": publis["response"]["docs"],
@@ -75,7 +77,7 @@ def rv(request):
     from time import gmtime
 
     structure = {"name": "RV", "id": 545342}
-    publis = requests.get("http://api.archives-ouvertes.fr/search/?q=(docType_s:ART AND authStructId_i:{})&sort=producedDate_tdate desc&rows=100&fl=*".format(structure.get("id"))).json()
+    publis = requests.get("http://api.archives-ouvertes.fr/search/?q=({r} AND authStructId_i:{s})&sort=producedDate_tdate desc&rows=100&fl=*".format(s=structure.get("id"), r=REQ_DOC_TYPE)).json()
 
     date = strftime("%d/%m/%Y", gmtime())
     context = {"publis": publis["response"]["docs"],
