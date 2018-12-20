@@ -96,14 +96,16 @@
     }
     </style>
 
-    <title>Web 3SR helper - Publi</title>
+    <title>Web 3SR helper - Publis</title>
 </head>
 
 <body>
     <div id="container">
         <div id="content">
             <h1>Helper des publis 3SR</h1>
-            <h2>3 publis labo</h2>
+            <a href="{% url 'publi:labo' %}">Laboratoire</a> - <a href="{% url 'publi:rv' %}">RV</a> - <a href="{% url 'publi:geomecanique' %}">Géomécanique</a> - <a href="{% url 'publi:comhet' %}">CoMHet</a>
+            <h2>{{structure.name}} [{{structure.id}}]</h2>
+            <h3>3 dernières publis</h3>
             <button id="button1" onclick="CopyToClipboard('copy1')">Copier au format HTML</button>
 
 <!-- html version -->
@@ -118,7 +120,7 @@
 {% for publi in publis3 %}- {{publi.citationFull_s}}
 {% endfor %}{%endautoescape%}</pre>
 
-            <h2>5 publis labo</h2>
+            <h3>5 dernières publis</h3>
             <button id="button2" onclick="CopyToClipboard('copy2')">Copier au format HTML</button>
 
 
@@ -134,7 +136,7 @@
 {% for publi in publis5 %}- {{publi.citationFull_s}}
 {% endfor %}{%endautoescape%}</pre>
 
-            <h2>100 publis labo</h2>
+            <h3>100 dernières publis</h3>
             <button id="button3" onclick="CopyToClipboard('copy3')">Copier au format HTML</button>
 
 <!-- html version -->
