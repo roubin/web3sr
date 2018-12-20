@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!-- Current language: {{ LANGUAGE_CODE }} -->
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+
+    <!-- load jquery from https://code.jquery.com/ -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> -->
+
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href={% static "admin/css/base.css" %} />
+    <link rel="stylesheet" type="text/css" href={% static "admin/css/forms.css" %} />
+    <!-- <link rel="stylesheet" type="text/css" href={% static "perso/css/base.css" %} /> -->
+
+    <!-- jquery module to sort tables from http://tablesorter.com -->
+    <!-- <script type="text/javascript" src={% static "perso/js/jquery.tablesorter.min.js" %}></script> -->
+
+    <!-- favicon -->
+    <!-- <link rel="icon" type="image/png" href={% static "images/items/268/small.png" %} /> -->
+
+    <!-- meta  -->
+    <meta name="robots" content="NONE,NOARCHIVE" />
+    <meta charset="UTF-8">
+
+    <title>Web 3SR helper</title>
+</head>
+
+<body>
+    <div id="container">
+        <div id="content">
+            <a href="{% url 'publi:index' %}"><b>Publi</b></a>
+        </div> <!--end of content-->
+    </div> <!--end of container-->
+</body>
+</html>

@@ -1,0 +1,6 @@
+*~
+*.pyc
+venv
+db.sqlite3
+secretkey.txt
+_pycache_
