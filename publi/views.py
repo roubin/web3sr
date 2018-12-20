@@ -10,6 +10,7 @@ def index(request):
 
     date = strftime("%d/%m/%Y", gmtime())
     context = {"publis": publis["response"]["docs"],
+               "publis3": publis["response"]["docs"][:3],
                "publis5": publis["response"]["docs"][:5],
                "date": date}
     return render(request, 'publi.html', context)
