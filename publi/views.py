@@ -6,7 +6,7 @@ from time import gmtime
 
 REQ_DOC_TYPE = "(docType_s:ART OR docType_s:OUV OR docType_s:COUV)"
 
-N_PUBLI_MAX = 1000
+N_PUBLI_MAX = 100
 
 def index(request):
     structure = {"name": "Collection 3SR", "id": "3S-R"}
