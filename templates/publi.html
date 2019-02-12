@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load app_filters %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
 
@@ -100,6 +101,13 @@
 </head>
 
 <body>
+    <!-- {{publis3.1|htmlPerso}}
+
+    <br><br>
+    {% for k, v in publis3.1.items %}
+        <b>{{k}}</b>: {{v}}<br>
+    {% endfor %} -->
+
     <div id="container">
         <div id="content">
             <h1>API HAL: <a href="{% url 'publi:index' %}">Collection 3SR</a> - <a href="{% url 'publi:labo' %}">Laboratoire</a> - <a href="{% url 'publi:rv' %}">RV</a> - <a href="{% url 'publi:geomecanique' %}">Géomécanique</a> - <a href="{% url 'publi:comhet' %}">CoMHet</a></h1>
@@ -110,7 +118,7 @@
 <!-- html version -->
 <pre id="copy1" style="display: none"><xmp><div class="liste-chevron">
     <ul>{% autoescape off %}
-    {% for publi in publis3 %}       <li>{{publi.citationFull_s}}</li>
+    {% for publi in publis3 %}       <li>{{publi|htmlPerso}}</li>
     {% endfor %}{%endautoescape%}</ul>
 </div></xmp></pre>
 
@@ -126,7 +134,7 @@
 <!-- html version -->
 <pre id="copy2" style="display: none"><xmp><div class="liste-chevron">
     <ul>{% autoescape off %}
-    {% for publi in publis5 %}       <li>{{publi.citationFull_s}}</li>
+    {% for publi in publis5 %}       <li>{{publi|htmlPerso}}</li>
     {% endfor %}{%endautoescape%}</ul>
 </div></xmp></pre>
 
@@ -147,7 +155,7 @@
 
 <div class="liste-chevron">
 <ul>{% autoescape off %}
-{% for publi in publis %}       <li>{{publi.citationFull_s}}</li>
+{% for publi in publis %}       <li>{{publi|htmlPerso}}</li>
 {% endfor %}{%endautoescape%}</ul>
 </div></xmp></pre>
 

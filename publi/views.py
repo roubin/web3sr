@@ -8,6 +8,7 @@ REQ_DOC_TYPE = "(docType_s:ART OR docType_s:OUV OR docType_s:COUV)"
 
 N_PUBLI_MAX = 100
 
+
 def index(request):
     structure = {"name": "Collection 3SR", "id": "3S-R"}
     req = "http://api.archives-ouvertes.fr/search/{}?q={}&sort=producedDate_tdate desc&rows={}&fl=*".format(structure.get("id"), REQ_DOC_TYPE, N_PUBLI_MAX)
