@@ -5,7 +5,7 @@ register = template.Library()
 @register.filter(name='htmlPerso')
 def htmlPerso(publi):
     # for k, v in publi.items():
-    #     print(k, v)
+        # print(k, v)
 
     # get names and urls
     try:
@@ -25,34 +25,34 @@ def htmlPerso(publi):
     try:
         cite.append('<b>"<a href="{}" target="_blank">{}</a>"</b>'.format(publi["uri_s"], publi["title_s"][0]))
     except:
-        print("uri_s not found in: ", publi["title_s"][0])
+        # print("uri_s not found in: ", publi["title_s"][0])
         pass
 
     # get journal
     try:
         cite.append('<em>{}</em>'.format(publi["journalTitle_s"]))
     except:
-        print("journalTitle_s not found in: ", publi["title_s"][0])
+        # print("journalTitle_s not found in: ", publi["title_s"][0])
         pass
 
     # get volume
     try:
         cite.append('Vol. {}'.format(publi["volume_s"]))
     except:
-        print("volume_s not found in: ", publi["title_s"][0])
+        # print("volume_s not found in: ", publi["title_s"][0])
         pass
 
     # get pages
     try:
         cite.append('pp. {}'.format(publi["page_s"]))
     except:
-        print("page_s not found in: ", publi["title_s"][0])
+        # print("page_s not found in: ", publi["title_s"][0])
         pass
 
     # get year
     try:
         cite.append('{}'.format(publi["releasedDateY_i"]))
     except:
-        print("releasedDateY_i not found in: ", publi["title_s"][0])
+        # print("releasedDateY_i not found in: ", publi["title_s"][0])
         pass
     return ', '.join(cite) + '.'
