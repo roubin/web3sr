@@ -7,9 +7,7 @@ from time import gmtime
 REQ_DOC_TYPE = "(docType_s:ART OR docType_s:OUV OR docType_s:COUV)"
 
 SORT_BY = "producedDate_s"
-# SORT_BY = "producedDate_tdate"
-# SORT_BY = "modifiedDate_tdate"
-# SORT_BY = "releasedDate_tdate"
+# SORT_BY = "journalDate_s"
 
 N_PUBLI_MAX = 100
 

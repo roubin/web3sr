@@ -51,7 +51,8 @@ def htmlPerso(publi):
 
     # get year
     try:
-        cite.append('{}'.format(publi["releasedDateY_i"]))
+        cite.append('{}'.format(publi["producedDateY_i"]))
+        # cite.append('{}'.format(publi["journalDate_s"].split("-")[0]))
     except:
         # print("releasedDateY_i not found in: ", publi["title_s"][0])
         pass
