@@ -6,6 +6,9 @@ from time import gmtime
 
 REQ_DOC_TYPE = "(docType_s:ART OR docType_s:OUV OR docType_s:COUV)"
 
+BRIDGE_TYPES = {"ART": "Articles", "COMM": "Conferences", "COUV": "Books", "THESE": "These"}
+
+
 SORT_BY = "producedDate_s"
 # SORT_BY = "journalDate_s"
 
@@ -32,6 +35,11 @@ def labo(request):
     req = "http://api.archives-ouvertes.fr/search/?q=({r} AND authStructId_i:{s})&sort={so} desc&rows={n}&fl=*".format(s=structure.get("id"), r=REQ_DOC_TYPE, n=N_PUBLI_MAX, so=SORT_BY)
     print(req)
     publis = requests.get(req).json()
+
+    req = "https://api.archives-ouvertes.fr/ref/author/?q=structureId_i:706"
+    print(req)
+    authors = requests.get(req).json()
+    print(authors)
 
     date = strftime("%d/%m/%Y", gmtime())
     context = {"publis": publis["response"]["docs"],
@@ -89,3 +97,24 @@ def rv(request):
                "npublis": N_PUBLI_MAX,
                "structure": structure}
     return render(request, 'publi.html', context)
+
+
+def idHal(request, idHal):
+    print("idHal: {}".format(idHal))
+    author = {"idHal": idHal}
+    # req = "http://api.archives-ouvertes.fr/search/?q=({r} AND authIdHal_s:{s})&sort={so} desc&rows={n}&fl=*".format(s=structure.get("id"), r=REQ_DOC_TYPE, n=N_PUBLI_MAX, so=SORT_BY)
+    req = "http://api.archives-ouvertes.fr/search/?q=(authIdHal_s:{s})&sort={so} desc&rows={n}&fl=*".format(s=author.get("idHal"), n=N_PUBLI_MAX, so=SORT_BY)
+    print(req)
+    publis_by_type = dict()
+    for publi in requests.get(req).json()["response"]["docs"]:
+        type = BRIDGE_TYPES.get(publi.get("docType_s")) if BRIDGE_TYPES.get(publi.get("docType_s")) is not None else publi.get("docType_s")
+        if type in publis_by_type:
+            publis_by_type[type].append(publi)
+        else:
+            publis_by_type[type] = [publi]
+
+    date = strftime("%d/%m/%Y", gmtime())
+    context = {"publis_by_type": publis_by_type,
+               "date": date,
+               "author": author}
+    return render(request, 'idHal.html', context)

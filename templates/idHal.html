@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+{% load static %}
+{% load app_filters %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!-- Current language: {{ LANGUAGE_CODE }} -->
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href={% static "admin/css/base.css" %} />
+    <link rel="stylesheet" type="text/css" href={% static "admin/css/forms.css" %} />
+    <!-- <link rel="stylesheet" type="text/css" href={% static "perso/css/base.css" %} /> -->
+
+    <!-- meta  -->
+    <meta name="robots" content="NONE,NOARCHIVE" />
+    <meta charset="UTF-8">
+
+    <script>
+        function CopyToClipboard(containerid) {
+        if (document.selection) {
+            var range = document.body.createTextRange();
+            range.moveToElementText(document.getElementById(containerid));
+            range.select().createTextRange();
+            document.execCommand("copy");
+
+        } else if (window.getSelection) {
+            var range = document.createRange();
+            var ref = document.getElementById(containerid);
+            ref.style.display = "block";
+             range.selectNode(ref);
+             window.getSelection().addRange(range);
+             document.execCommand("copy");
+             ref.insertAdjacentHTML('afterend', '<span class="flash"></span>');
+             ref.style.display = "none";
+        }}
+    </script>
+    <style>
+    pre {
+        background: #f4f4f4;
+        border: 1px solid #ddd;
+        border-left: 3px solid #f36d33;
+        color: #666;
+        page-break-inside: avoid;
+        font-family: monospace;
+        font-size: 12px;
+        /* line-height: 1.6; */
+        margin-bottom: 1.6em;
+        max-width: 100%;
+        overflow: auto;
+        padding: 1em 1.5em;
+        display: block;
+        word-wrap: break-word;
+    }
+
+    button {
+        background-color: #004A7F;
+         -webkit-border-radius: 4px;
+         border-radius: 4px;
+         border: none;
+         color: #FFFFFF;
+         cursor: pointer;
+         display: inline-block;
+         padding: 4px 8px;
+         text-align: center;
+         text-decoration: none;
+         height: 29px;
+    }
+
+    span.flash{
+        background-color: #00AA00;
+         -webkit-border-radius: 4px;
+         border-radius: 4px;
+         border: none;
+         color: #FFFFFF;
+         cursor: pointer;
+         display: inline-block;
+         padding: 4px 8px;
+         text-align: center;
+         text-decoration: none;
+         -webkit-animation: blop 2000ms normal forwards;
+         -moz-animation: blop 2000ms normal forwards;
+         -o-animation: blop 2000ms normal forwards;
+         animation: blop 2000ms normal forwards;
+    }
+    span.flash:before{
+        content: "Liste copiée";
+    }
+
+    @keyframes blop {
+        0% { display: none; opacity: 0; }
+        1% { display: block; opacity: 0; }
+        50% { display: block; opacity: 1; }
+        99% { display: block; opacity: 0; }
+        100% { display: none; opacity: 0; }
+    }
+    </style>
+
+    <title>Web 3SR helper - Publis</title>
+</head>
+
+<body>
+    <div id="container">
+        <div id="content">
+            <h1>API HAL: <a href="{% url 'publi:index' %}">Collection 3SR</a> - <a href="{% url 'publi:labo' %}">Laboratoire</a> - <a href="{% url 'publi:rv' %}">RV</a> - <a href="{% url 'publi:geomecanique' %}">Géomécanique</a> - <a href="{% url 'publi:comhet' %}">CoMHet</a></h1>
+            <h2>Author idHal: {{author.idHal}}</h2>
+
+<!-- nice version -->
+<pre>{% autoescape off %}{% for type, publis in publis_by_type.items %}
+{{type}} ({{publis|length}})
+{% for publi in publis %}{{ forloop.counter }}. {{publi.citationFull_s}}
+{% endfor %}{% endfor %}{%endautoescape%}</pre>
+
+<textarea placeholder="Test du copier coller" rows="10" cols="200"></textarea>
+
+        </div> <!--end of content-->
+    </div> <!--end of container-->
+</body>
+</html>
