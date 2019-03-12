@@ -99,22 +99,31 @@ def rv(request):
     return render(request, 'publi.html', context)
 
 
-def idHal(request, idHal):
+def idHal(request):
+    idHal = request.GET.get('q', False)
     print("idHal: {}".format(idHal))
     author = {"idHal": idHal}
     # req = "http://api.archives-ouvertes.fr/search/?q=({r} AND authIdHal_s:{s})&sort={so} desc&rows={n}&fl=*".format(s=structure.get("id"), r=REQ_DOC_TYPE, n=N_PUBLI_MAX, so=SORT_BY)
     req = "http://api.archives-ouvertes.fr/search/?q=(authIdHal_s:{s})&sort={so} desc&rows={n}&fl=*".format(s=author.get("idHal"), n=N_PUBLI_MAX, so=SORT_BY)
     print(req)
     publis_by_type = dict()
-    for publi in requests.get(req).json()["response"]["docs"]:
-        type = BRIDGE_TYPES.get(publi.get("docType_s")) if BRIDGE_TYPES.get(publi.get("docType_s")) is not None else publi.get("docType_s")
-        if type in publis_by_type:
-            publis_by_type[type].append(publi)
-        else:
-            publis_by_type[type] = [publi]
+    api_error = dict()
+    publis = requests.get(req).json()
+    if 'error' in publis:
+        api_error = publis['error']
+    else:
+        publis = publis["response"]["docs"]
+        for publi in publis:
+            type = BRIDGE_TYPES.get(publi.get("docType_s")) if BRIDGE_TYPES.get(publi.get("docType_s")) is not None else publi.get("docType_s")
+            if type in publis_by_type:
+                publis_by_type[type].append(publi)
+            else:
+                publis_by_type[type] = [publi]
+
 
     date = strftime("%d/%m/%Y", gmtime())
     context = {"publis_by_type": publis_by_type,
                "date": date,
-               "author": author}
+               "author": author,
+               "error": api_error}
     return render(request, 'idHal.html', context)

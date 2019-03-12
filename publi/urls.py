@@ -9,5 +9,6 @@ urlpatterns = [
     re_path(r'^rv/$', views.rv, name='rv'),
     re_path(r'^comhet/$', views.comhet, name='comhet'),
     re_path(r'^geomecanique/$', views.geomecanique, name='geomecanique'),
-    re_path(r'^idHal/(?P<idHal>[\w-]+)/$', views.idHal, name='idHal'),
+    re_path(r'^idHal/$', views.idHal, name='idHal'),
+    # re_path(r'^idHal/(?P<idHal>[\w-]+)/$', views.idHal, name='idHal'),
     ]

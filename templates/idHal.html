@@ -103,8 +103,36 @@
 <body>
     <div id="container">
         <div id="content">
-            <h1>API HAL: <a href="{% url 'publi:index' %}">Collection 3SR</a> - <a href="{% url 'publi:labo' %}">Laboratoire</a> - <a href="{% url 'publi:rv' %}">RV</a> - <a href="{% url 'publi:geomecanique' %}">Géomécanique</a> - <a href="{% url 'publi:comhet' %}">CoMHet</a></h1>
-            <h2>Author idHal: {{author.idHal}}</h2>
+            <h1>WEB 3SR / HAL HELPER: <a href="{% url 'publi:index' %}">Collection 3SR</a> - <a href="{% url 'publi:labo' %}">Laboratoire</a> - <a href="{% url 'publi:rv' %}">RV</a> - <a href="{% url 'publi:geomecanique' %}">Géomécanique</a> - <a href="{% url 'publi:comhet' %}">CoMHet</a> - <a href="{% url 'publi:idHal'%}">idHal</a></h1>
+
+            <from>
+                <form action="{% url 'publi:idHal' %}" method="get">
+                    <label for="q"><b>Enter your idHal here:</b> </label>
+                    <input id="q" type="text" required name="q" placeholder="idHal">
+                    <input type="submit" value="Fetch publications">
+                </form>
+
+            </form>
+{% if author.idHal %}
+                <h2>Author idHal: {{author.idHal}}</h2>
+
+{% if error %}
+<pre>{% autoescape off %}
+<b>API ERROR code {{error.code}}</b>
+{{error.msg}}
+{%endautoescape%}</pre>
+{% endif %}
+
+
+<!-- html version -->
+<button id="button1" onclick="CopyToClipboard('copy1')">Copy to HTML format</button>
+<pre id="copy1" style="display: none"><xmp><h3>Production</h3><div class="liste-chevron">{% for type, publis in publis_by_type.items %}
+
+    <h4>{{type}}</h4>
+    <ul>{% autoescape off %}
+    {% for publi in publis %}       <li style="margin-bottom: 5px;">{{publi|htmlPerso}}</li>
+    {% endfor %}{%endautoescape%}</ul>{% endfor %}
+</div></xmp></pre>
 
 <!-- nice version -->
 <pre>{% autoescape off %}{% for type, publis in publis_by_type.items %}
@@ -112,8 +140,10 @@
 {% for publi in publis %}{{ forloop.counter }}. {{publi.citationFull_s}}
 {% endfor %}{% endfor %}{%endautoescape%}</pre>
 
-<textarea placeholder="Test du copier coller" rows="10" cols="200"></textarea>
 
+<textarea placeholder="Copy/paste test" rows="10" cols="200"></textarea>
+
+{% endif %}
         </div> <!--end of content-->
     </div> <!--end of container-->
 </body>
