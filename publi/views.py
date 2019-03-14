@@ -113,6 +113,10 @@ def idHal(request):
         api_error = publis['error']
     else:
         publis = publis["response"]["docs"]
+        req_author = 'https://api.archives-ouvertes.fr/ref/author/?q=idHal_s:{s}'.format(s=author.get("idHal"))
+        print(req_author)
+        idhal_info = requests.get(req_author).json()
+        author["docid"] = idhal_info.get("response")["docs"]
         for publi in publis:
             type = BRIDGE_TYPES.get(publi.get("docType_s")) if BRIDGE_TYPES.get(publi.get("docType_s")) is not None else publi.get("docType_s")
             if type in publis_by_type:

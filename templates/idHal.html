@@ -115,6 +115,12 @@
             </form>
 {% if author.idHal %}
                 <h2>Author idHal: {{author.idHal}}</h2>
+                Author id attached to it:
+                <ul>
+                {% for authorId in author.docid %}
+                    <li>{{authorId.label_s}} [{{authorId.docid}}]</li>
+                {% endfor %}
+                </ul>
 
 {% if error %}
 <pre>{% autoescape off %}
@@ -125,7 +131,7 @@
 
 
 <!-- html version -->
-<button id="button1" onclick="CopyToClipboard('copy1')">Copy to HTML format</button>
+<button id="button1" onclick="CopyToClipboard('copy1')">Copy list to HTML format</button>
 <pre id="copy1" style="display: none"><xmp><h3>Production</h3><div class="liste-chevron">{% for type, publis in publis_by_type.items %}
 
     <h4>{{type}}</h4>
