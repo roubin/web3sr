@@ -132,13 +132,14 @@
 
 <!-- html version -->
 <button id="button1" onclick="CopyToClipboard('copy1')">Copy list to HTML format</button>
-<pre id="copy1" style="display: none"><xmp><h3>Production</h3><div class="liste-chevron">{% for type, publis in publis_by_type.items %}
+<pre id="copy1" style="display: none"><xmp><h3>Production</h3>{% for type, publis in publis_by_type.items %}
 
     <h4>{{type}}</h4>
+    <div class="liste-chevron">
     <ul>{% autoescape off %}
     {% for publi in publis %}       <li style="margin-bottom: 5px;">{{publi|htmlPerso}}</li>
-    {% endfor %}{%endautoescape%}</ul>{% endfor %}
-</div></xmp></pre>
+    {% endfor %}{%endautoescape%}</ul></div>{% endfor %}
+</xmp></pre>
 
 <!-- nice version -->
 <pre>{% autoescape off %}{% for type, publis in publis_by_type.items %}

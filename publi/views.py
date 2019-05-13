@@ -5,14 +5,9 @@ from time import strftime
 from time import gmtime
 
 REQ_DOC_TYPE = "(docType_s:ART OR docType_s:OUV OR docType_s:COUV)"
-
 BRIDGE_TYPES = {"ART": "Articles", "COMM": "Conferences", "COUV": "Books", "THESE": "These"}
-
-
-SORT_BY = "producedDate_s"
-# SORT_BY = "journalDate_s"
-
-N_PUBLI_MAX = 100
+SORT_BY = "producedDate_s"  # "journalDate_s"
+N_PUBLI_MAX = 1000
 
 
 def index(request):
@@ -117,13 +112,13 @@ def idHal(request):
         print(req_author)
         idhal_info = requests.get(req_author).json()
         author["docid"] = idhal_info.get("response")["docs"]
-        for publi in publis:
+        for i, publi in enumerate(publis):
+            print(i, publi["citationFull_s"])
             type = BRIDGE_TYPES.get(publi.get("docType_s")) if BRIDGE_TYPES.get(publi.get("docType_s")) is not None else publi.get("docType_s")
             if type in publis_by_type:
                 publis_by_type[type].append(publi)
             else:
                 publis_by_type[type] = [publi]
-
 
     date = strftime("%d/%m/%Y", gmtime())
     context = {"publis_by_type": publis_by_type,
