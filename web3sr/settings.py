@@ -25,7 +25,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = os.environ['SECRET_KEY']  # 3j*whbe7_=abwo*^ug+8_yu-&j7yye2)$1=&45ih@)%@l9wnty
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1", "web3sr.herokuapp.com"]
 
